@@ -187,7 +187,7 @@ public final class PluginManager {
      * Loads plugins from directory {@literal webRoot/plugins/}.
      */
     public void load() {
-        Stopwatchs.start("Load Plugins");
+        Stopwatchs.start("Loading Plugins...");
 
         classLoaders.clear();
 
@@ -276,7 +276,10 @@ public final class PluginManager {
         final Class<?> pluginClass = classLoader.loadClass(pluginClassName);
 
         LOGGER.log(Level.FINEST, "Loading plugin class[name={0}]", pluginClassName);
-        final AbstractPlugin ret = (AbstractPlugin) pluginClass.newInstance();
+        
+        final Method method = pluginClass.getMethod("getInstance", new Class[0]);
+        
+        final AbstractPlugin ret = (AbstractPlugin) method.invoke(null, new Object[0]);
 
         ret.setRendererId(rendererId);
 

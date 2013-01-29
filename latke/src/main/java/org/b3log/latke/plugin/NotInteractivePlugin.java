@@ -27,8 +27,29 @@ import org.b3log.latke.servlet.HTTPRequestContext;
  * @version 1.1.0.0, Jan 23, 2013
  */
 @SuppressWarnings("serial")
-public class NotInteractivePlugin extends AbstractPlugin {
+public final class NotInteractivePlugin extends AbstractPlugin {
 
+    /**
+     * the instance.
+     */
+    private static NotInteractivePlugin instance = null;
+    
+    /**
+     * get an instance.
+     * @return the instance
+     */
+    public static NotInteractivePlugin getInstance() {
+        if (null == instance) {
+            instance = new NotInteractivePlugin();
+        }
+        return instance;
+    }
+    
+    /**
+     * private constructor.
+     */
+    private NotInteractivePlugin() {}
+    
     @Override
     public void prePlug(final HTTPRequestContext context, final  Map<String, Object> args) {}
 
